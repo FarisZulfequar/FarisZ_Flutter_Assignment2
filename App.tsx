@@ -3,14 +3,12 @@
 // Github Repo: https://github.com/FarisZulfequar/FarisZ_Flutter_Assignment2
 
 
-import {Text, View } from 'react-native';
+import { GenerationPage } from './GenerationPage.tsx';
 
-function App() {
+export function App() {
 
   return (
-    <View>
-      <Text>Hi</Text>
-    </View>
+    <GenerationPage/>
   );
 }
 
