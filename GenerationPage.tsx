@@ -1,15 +1,23 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
 
 
 export function GenerationPage() {
+  const [number, setNumber] = useState(0);
+
+  const generateRandomNumber = () => {
+    const randomNum = Math.floor(Math.random() * 9) + 1;
+    setNumber(randomNum);
+  }
+
   return (
     <View style={generationPageStyles.container}>
       <View style={generationPageStyles.container2}>
-        <Text style={generationPageStyles.textCenter}>{'...'}</Text>
+        <Text style={generationPageStyles.textCenter}>{number === 0 ? '...' : number}</Text>
       </View>
       <View style={generationPageStyles.bottomButtons}>
         <TouchableOpacity style={generationPageStyles.button}>
-          <Text style={generationPageStyles.btnText}>Generate</Text>
+          <Text style={generationPageStyles.btnText} onPress={generateRandomNumber}>Generate</Text>
         </TouchableOpacity>
         <TouchableOpacity style={generationPageStyles.button}>
           <Text style={generationPageStyles.btnText}>View Statistics</Text>
