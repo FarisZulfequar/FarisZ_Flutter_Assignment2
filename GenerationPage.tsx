@@ -4,6 +4,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export function GenerationPage() {
   return (
     <View style={generationPageStyles.container}>
+      <View style={generationPageStyles.container2}>
+        <Text style={generationPageStyles.textCenter}>{'...'}</Text>
+      </View>
       <View style={generationPageStyles.bottomButtons}>
         <TouchableOpacity style={generationPageStyles.button}>
           <Text style={generationPageStyles.btnText}>Generate</Text>
@@ -19,9 +22,21 @@ export function GenerationPage() {
 export const generationPageStyles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: '#b08968',
+  },
+
+  container2: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#b08968",
+  },
+
+  textCenter: {
+    fontSize: 70,
+    color: "white",
+    fontWeight: "bold",
+    marginTop : 100
   },
 
   bottomButtons: {
