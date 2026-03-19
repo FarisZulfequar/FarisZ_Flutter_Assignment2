@@ -18,15 +18,13 @@
      npm install @react-navigation/native
      npm install react-native-screens react-native-safe-area-context
      npm install @react-navigation/native-stack
-
 */
 
 /* Documentation Used
 1. https://reactnavigation.org/docs/native-stack-navigator/
-2. https://react.dev/reference/react/useLayoutEffect
-3. https://reactnavigation.org/docs/header-buttons/
-4. https://react.dev/reference/react/useContext
-5. https://react.dev/reference/react/createContext
+2. https://reactnavigation.org/docs/header-buttons/
+3. https://react.dev/reference/react/useContext
+4. https://react.dev/reference/react/createContext
 * */
 
 /* AI Used
@@ -40,7 +38,7 @@ Answer: https://chatgpt.com/s/t_69b9689060dc8191bf35df8bb911e4f1
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { createContext, ReactNode, useCallback, useContext, useEffect, useLayoutEffect, useState } from 'react';
+import React, { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/core';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -64,22 +62,23 @@ export function App() {
             name="GenerationPage"
             component={GenerationPage}
             options={{
-              title: "Random Number Generator",
+              headerTintColor: "white",
+              title : "Random Number Generator",
               headerStyle: {
                 backgroundColor: "#7f5539"
               },
-              headerTintColor: "white"
             }}
           />
           <Stack.Screen
             name="StatisticPage"
             component={StatisticPage}
-            options={({}) => ({
-              title: "Statistics",
+            options={() => ({
               headerStyle: {
                 backgroundColor: "#7f5539"
               },
-              headerTintColor: "white"
+              headerTintColor: "white",
+              title : "Statistic"
+
             })}
           />
         </Stack.Navigator>
@@ -96,6 +95,8 @@ type navigationProp = NativeStackScreenProps<NavigationList, 'GenerationPage'>;
 
 export function GenerationPage({navigation} : navigationProp) {
   const [number, setNumber] = useState(0);
+  // currentIteration is used to prevent a bug where the update and rendering happen same time
+  // resulting in a console error. It works and nothing changes, but it comes up.
   const [currentIteration, setCurrentIteration] = useState(0);
   const [isIncrementNumber, setIsIncrementNumber] = useState(false);
   const { increaseGeneratedNumberTimes } = useContext(NumberContainer);
@@ -210,18 +211,6 @@ type navigationProp2 = NativeStackScreenProps<NavigationList, 'StatisticPage'>;
 
 export function StatisticPage({navigation}: navigationProp2) {
   const { numberMap, resetNumberList } = useContext(NumberContainer);
-
-  // Makes the upper title of the screen white and have an arrow on the left
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={generationPageStyles.leftArrowBtn}>←</Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation]);
-
   return (
 
     <View style={generationPageStyles.container}>
